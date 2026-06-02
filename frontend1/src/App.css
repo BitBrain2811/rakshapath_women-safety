@@ -1,0 +1,1144 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* Global Styles & Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+  background-color: #08030f;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* App container */
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 80% 20%, #15072c 0%, #05020c 100%);
+  position: relative;
+}
+
+/* Glassmorphic Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 30px;
+  background: rgba(14, 8, 24, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 100;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.brand-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  background: linear-gradient(135deg, #00b0ff 0%, #d500f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Top Horizontal Navbar */
+.header-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active {
+  color: white;
+  background: rgba(0, 176, 255, 0.15);
+  border: 1px solid rgba(0, 176, 255, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 176, 255, 0.1);
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-phone {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Interactive Sidebar */
+.app-body {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 360px;
+  background: rgba(10, 5, 20, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 50;
+  overflow-y: auto;
+  box-shadow: 10px 0 30px rgba(0,0,0,0.3);
+}
+
+/* Sleek Scrollbars */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* Glass Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.glass-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Input Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.select-input, .text-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-input:focus, .text-input:focus {
+  border-color: #00b0ff;
+  box-shadow: 0 0 8px rgba(0, 176, 255, 0.25);
+}
+
+/* Route List & Items */
+.route-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.route-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.route-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.route-item.selected {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.route-badge-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.route-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.route-time {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.route-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.safety-score-pill {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 200, 83, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 200, 83, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-logout {
+  background: rgba(255, 23, 74, 0.1);
+  color: #ff1744;
+  border: 1px solid rgba(255, 23, 74, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: #ff1744;
+  color: white;
+}
+
+/* Map container wrapper */
+.map-container-wrapper {
+  flex: 1;
+  position: relative;
+  background: #090514;
+}
+
+/* Turn-by-Turn Navigation HUD Overlay */
+.nav-hud {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 460px;
+  max-width: 90%;
+  background: rgba(14, 8, 24, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 176, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideDown 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.nav-direction-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-icon-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(0, 176, 255, 0.15);
+  border: 1px solid rgba(0, 176, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.nav-text-container {
+  flex: 1;
+}
+
+.nav-instruction {
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.nav-distance {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.nav-progress-fill {
+  height: 100%;
+  background: #00b0ff;
+  transition: width 0.3s ease;
+}
+
+.nav-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-nav-action {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-nav-play {
+  background: rgba(0, 200, 83, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+}
+
+.btn-nav-pause {
+  background: rgba(255, 179, 0, 0.15);
+  color: #ffb300;
+  border: 1px solid rgba(255, 179, 0, 0.3);
+}
+
+.btn-nav-cancel {
+  background: rgba(211, 47, 47, 0.15);
+  color: #ff1744;
+  border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+.btn-nav-action:hover {
+  transform: translateY(-1px);
+}
+
+/* Floating SOS Emergency Button (Always Visible) */
+.sos-button-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+}
+
+.sos-button-floating {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff1744 0%, #b71c1c 100%);
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(255, 23, 74, 0.6), 0 0 0 0 rgba(255, 23, 74, 0.4);
+  animation: sosPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sos-button-floating:hover {
+  transform: scale(1.08);
+}
+
+.sos-button-floating:active {
+  transform: scale(0.95);
+}
+
+/* Emergency Overlay Modal */
+.emergency-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 2, 10, 0.9);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+}
+
+.emergency-modal-card {
+  background: rgba(20, 10, 30, 0.8);
+  border: 1px solid rgba(255, 23, 74, 0.3);
+  box-shadow: 0 20px 60px rgba(255, 23, 74, 0.2);
+  border-radius: 28px;
+  padding: 40px;
+  width: 480px;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.emergency-modal-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 23, 74, 0.08) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.emergency-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  display: inline-block;
+  animation: sosAlertPulse 1.2s infinite;
+}
+
+.emergency-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ff1744;
+  margin: 0 0 10px 0;
+}
+
+.emergency-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+.emergency-status-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+  text-align: left;
+  z-index: 1;
+  position: relative;
+}
+
+.status-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-indicator {
+  font-size: 16px;
+}
+
+.status-step-text {
+  flex: 1;
+}
+
+.status-step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+}
+
+.status-step-desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  word-break: break-all;
+}
+
+.emergency-cancel-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1;
+  position: relative;
+  width: 100%;
+}
+
+.emergency-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes sosPulse {
+  0% {
+    box-shadow: 0 10px 20px rgba(255, 23, 74, 0.6), 0 0 0 0 rgba(255, 23, 74, 0.4);
+  }
+  70% {
+    box-shadow: 0 10px 30px rgba(255, 23, 74, 0.4), 0 0 0 25px rgba(255, 23, 74, 0);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(255, 23, 74, 0.6), 0 0 0 0 rgba(255, 23, 74, 0);
+  }
+}
+
+@keyframes sosAlertPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 10px #ff1744); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { transform: translate(-50%, -100px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Safety Level Badge colors */
+.badge-low {
+  background: rgba(0, 200, 83, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+}
+
+.badge-medium {
+  background: rgba(255, 179, 0, 0.15);
+  color: #ffb300;
+  border: 1px solid rgba(255, 179, 0, 0.3);
+}
+
+.badge-high {
+  background: rgba(211, 47, 47, 0.15);
+  color: #ff1744;
+  border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+/* --- Added for 4. Last Location Tracking (Phone Off Case) --- */
+
+.offline-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #ff1744 0%, #b71c1c 100%);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 1000;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 15px rgba(255, 23, 74, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  animation: slideDown 0.3s ease;
+}
+
+.pulse-dot-green {
+  width: 8px;
+  height: 8px;
+  background-color: #00e676;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+  animation: pulseGreen 1.6s infinite cubic-bezier(0.66, 0, 0, 1);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+}
+
+.pulse-dot-red {
+  width: 10px;
+  height: 10px;
+  background-color: #ff1744;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(255, 23, 74, 0.7);
+  animation: pulseRed 1.4s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulseRed {
+  0% { box-shadow: 0 0 0 0 rgba(255, 23, 74, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 23, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 23, 74, 0); }
+}
+
+.toggle-switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.switch-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #00b0ff;
+  border-color: #00b0ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.offline-card-alert {
+  background: rgba(255, 23, 74, 0.08);
+  border: 1px solid rgba(255, 23, 74, 0.3);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(255, 23, 74, 0.1);
+  animation: borderAlertGlow 2s infinite ease-in-out;
+}
+
+@keyframes borderAlertGlow {
+  0% { border-color: rgba(255, 23, 74, 0.3); box-shadow: 0 8px 32px rgba(255, 23, 74, 0.08); }
+  50% { border-color: rgba(255, 23, 74, 0.6); box-shadow: 0 8px 32px rgba(255, 23, 74, 0.2); }
+  100% { border-color: rgba(255, 23, 74, 0.3); box-shadow: 0 8px 32px rgba(255, 23, 74, 0.08); }
+}
+
+/* --- Added for 5. Emergency Contacts System --- */
+
+.contacts-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00b0ff;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.personal-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.personal-contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.contact-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-name-txt {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+}
+
+.contact-relation-txt {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-phone-txt {
+  font-size: 11px;
+  font-family: monospace;
+  color: rgba(0, 176, 255, 0.8);
+}
+
+.contact-actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-contact-action {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.btn-contact-action:hover {
+  background: #00b0ff;
+  border-color: #00b0ff;
+}
+
+.btn-contact-action.delete:hover {
+  background: #ff1744;
+  border-color: #ff1744;
+}
+
+.add-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0,0,0,0.15);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.contact-row-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.mini-input {
+  flex: 1;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: white;
+  font-size: 12px;
+  outline: none;
+}
+
+.btn-add-contact {
+  width: 100%;
+  padding: 8px;
+  background: rgba(0, 176, 255, 0.15);
+  color: #00b0ff;
+  border: 1px solid rgba(0, 176, 255, 0.25);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add-contact:hover {
+  background: #00b0ff;
+  color: white;
+}
+
+.gov-helpline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.helpline-grid-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.helpline-grid-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 176, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.helpline-icon-wrap {
+  font-size: 20px;
+}
+
+.helpline-name-txt {
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+.helpline-num-txt {
+  font-size: 14px;
+  font-weight: 800;
+  color: #00e676;
+  font-family: monospace;
+}
+
+.helpline-label-txt {
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Added for 6. Smartwatch Integration --- */
+
+/* Floating watch simulator main button */
+.btn-watch-sim-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-watch-sim-toggle:hover {
+  background: #00b0ff;
+  border-color: #00b0ff;
+}
+
+.btn-watch-sim-toggle.active {
+  background: #00b0ff;
+  border-color: #00b0ff;
+  box-shadow: 0 4px 12px rgba(0, 176, 255, 0.2);
+}
+
+/* Watch Container Placement */
+.watch-simulator-wrapper {
+  position: fixed;
+  bottom: 140px; /* Above standard SOS button */
+  right: 30px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Watch Metallic Case Casing */
+.watch-case {
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle at 30% 30%, #555 0%, #222 70%, #111 100%);
+  border: 5px solid #333;
+  border-radius: 42px; /* Apple watch look */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.watch-case::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -2px;
+  width: 5px;
+  height: 40px;
+  background: #444;
+  border-radius: 3px;
+}
+
+/* Apple Watch Crown Dial */
+.watch-crown {
+  position: absolute;
+  right: -8px;
+  top: 40px;
+  width: 8px;
+  height: 24px;
+  background: #444;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 0 2px 2px rgba(255,255,255,0.2);
+}
+
+/* Watch Screen display area */
+.watch-screen {
+  width: 146px;
+  height: 146px;
+  background: #000000;
+  border-radius: 32px;
+  border: 2px solid #111;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Outfit', sans-serif;
+  user-select: none;
+}
+
+/* Big watch SOS trigger */
+.watch-sos-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff1744 0%, #b71c1c 100%);
+  color: white;
+  border: none;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 23, 74, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.15s ease;
+}
+
+.watch-sos-btn:hover {
+  transform: scale(1.05);
+}
+
+.watch-sos-btn:active {
+  transform: scale(0.95);
+}
+
+.watch-sos-btn.vibrating {
+  animation: watchSosPulsing 1s infinite alternate;
+}
+
+@keyframes watchSosPulsing {
+  from { box-shadow: 0 4px 15px rgba(255, 23, 74, 0.4); transform: scale(1); }
+  to { box-shadow: 0 4px 25px rgba(255, 23, 74, 0.8); transform: scale(1.06); }
+}
+
+.watch-header-time {
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffb300;
+  letter-spacing: 0.5px;
+}
+
+.watch-footer-status {
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Watch shake animation for haptic vibration feedback */
+.watch-vibrating {
+  animation: watchHapticShake 0.15s infinite;
+}
+
+@keyframes watchHapticShake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+  20% { transform: translate(-2px, 0px) rotate(0.5deg); }
+  30% { transform: translate(1px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(0.5deg); }
+  50% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+  60% { transform: translate(-2px, 1px) rotate(0deg); }
+  70% { transform: translate(2px, 1px) rotate(-0.5deg); }
+  80% { transform: translate(-1px, -1px) rotate(0.5deg); }
+  90% { transform: translate(1px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, -1px) rotate(-0.5deg); }
+}
+
+/* standalone toggle watch sub-button */
+.btn-watch-lte {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 7.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-watch-lte:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.btn-watch-lte.active {
+  background: rgba(0, 176, 255, 0.2);
+  border-color: #00b0ff;
+  color: #00b0ff;
+}
+
+/* Simulated vibration waves visual ring overlay */
+.watch-vibration-waves {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border: 2px solid rgba(255, 23, 74, 0.3);
+  border-radius: 50px;
+  pointer-events: none;
+  animation: watchWavePulse 1.2s infinite;
+  z-index: -1;
+}
+
+@keyframes watchWavePulse {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
