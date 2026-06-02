@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from app.routers import safety, routing, heatmap, auth
+from app.routers import safety, routing, heatmap, auth, alerts
 
 app = FastAPI(title="SafePath AI")
 
@@ -22,6 +22,7 @@ app.include_router(auth.router, prefix="/auth")
 app.include_router(safety.router, prefix="/safety")
 app.include_router(routing.router, prefix="/route")
 app.include_router(heatmap.router, prefix="/heatmap")
+app.include_router(alerts.router, prefix="/alerts")
 
 # React Build serving setup
 frontend_build_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend1", "build"))

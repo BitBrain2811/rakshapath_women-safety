@@ -26,12 +26,11 @@ MSG91_AUTH_KEY = os.getenv("MSG91_AUTH_KEY")
 MSG91_TEMPLATE_ID = os.getenv("MSG91_TEMPLATE_ID")
 
 
-def send_sms_otp(phone_number: str, otp: str) -> bool:
+def send_sms(phone_number: str, message: str, otp: str = None) -> bool:
     """
-    Sends an OTP to the given Indian phone number (format +91XXXXXXXXXX) using one of the SMS gateways.
-    If no credentials are configured, logs the OTP to the console and returns True (dev fallback).
+    Sends an SMS (either OTP or custom message) to the given Indian phone number (format +91XXXXXXXXXX)
+    using one of the SMS gateways (Twilio, Fast2SMS, or MSG91).
     """
-    message = f"Your RakshaPath verification code is: {otp}. Valid for 5 minutes. Do not share this OTP."
     print(f"\n--- SMS GATEWAY ATTEMPT ---")
     print(f"To: {phone_number}")
     print(f"Message: {message}")
@@ -71,22 +70,30 @@ def send_sms_otp(phone_number: str, otp: str) -> bool:
             # Fast2SMS requires 10 digit number (without +91)
             raw_phone = phone_number.replace("+91", "").strip()
             
-            # Formulate query params for GET request matching user's spec
-            params = urllib.parse.urlencode({
-                "authorization": FAST2SMS_API_KEY,
-                "route": "otp",
-                "variables_values": otp,
-                "numbers": raw_phone
-            })
+            # If otp is provided, use the fast2sms OTP route, otherwise use the quick SMS 'q' route
+            if otp:
+                params = urllib.parse.urlencode({
+                    "authorization": FAST2SMS_API_KEY,
+                    "route": "otp",
+                    "variables_values": otp,
+                    "numbers": raw_phone
+                })
+            else:
+                params = urllib.parse.urlencode({
+                    "authorization": FAST2SMS_API_KEY,
+                    "route": "q",
+                    "message": message,
+                    "numbers": raw_phone
+                })
+                
             url = f"https://www.fast2sms.com/dev/bulkV2?{params}"
-            
             req = urllib.request.Request(url, method="GET")
             
             with urllib.request.urlopen(req, timeout=10) as response:
                 res_body = response.read().decode("utf-8")
                 res_json = json.loads(res_body)
                 if res_json.get("return") is True:
-                    print("Fast2SMS message sent successfully via GET.")
+                    print("Fast2SMS message sent successfully.")
                     return True
                 else:
                     print(f"Fast2SMS error response: {res_json}")
@@ -97,38 +104,51 @@ def send_sms_otp(phone_number: str, otp: str) -> bool:
     elif MSG91_AUTH_KEY:
         print("Using MSG91 Gateway...")
         try:
-            url = "https://api.msg91.com/api/v5/otp"
-            # MSG91 expects phone with country code (e.g. 91XXXXXXXXXX) without +
-            clean_phone = phone_number.replace("+", "").strip()
-            
-            payload = {
-                "template_id": MSG91_TEMPLATE_ID or "default_template",
-                "mobile": clean_phone,
-                "otp": otp
-            }
-            
-            req = urllib.request.Request(
-                url,
-                data=json.dumps(payload).encode("utf-8"),
-                method="POST"
-            )
-            req.add_header("authkey", MSG91_AUTH_KEY)
-            req.add_header("Content-Type", "application/json")
-            
-            with urllib.request.urlopen(req, timeout=10) as response:
-                res_body = response.read().decode("utf-8")
-                res_json = json.loads(res_body)
-                if res_json.get("type") == "success":
-                    print("MSG91 OTP sent successfully.")
-                    return True
-                else:
-                    print(f"MSG91 error response: {res_json}")
+            if otp:
+                url = "https://api.msg91.com/api/v5/otp"
+                clean_phone = phone_number.replace("+", "").strip()
+                payload = {
+                    "template_id": MSG91_TEMPLATE_ID or "default_template",
+                    "mobile": clean_phone,
+                    "otp": otp
+                }
+                req = urllib.request.Request(
+                    url,
+                    data=json.dumps(payload).encode("utf-8"),
+                    method="POST"
+                )
+                req.add_header("authkey", MSG91_AUTH_KEY)
+                req.add_header("Content-Type", "application/json")
+                
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    res_body = response.read().decode("utf-8")
+                    res_json = json.loads(res_body)
+                    if res_json.get("type") == "success":
+                        print("MSG91 OTP sent successfully.")
+                        return True
+                    else:
+                        print(f"MSG91 error response: {res_json}")
+            else:
+                # Custom MSG91 flow API could be used, or print log
+                print("MSG91 custom text message sending not implemented (use Twilio/Fast2SMS).")
         except Exception as e:
             print(f"MSG91 gateway error: {e}")
 
     else:
         print("[WARNING] No SMS gateway credentials configured (missing Twilio, Fast2SMS, or MSG91 keys).")
-        print(f"[DEV FALLBACK] OTP Code: {otp} (Use this code on the UI to test)")
+        if otp:
+            print(f"[DEV FALLBACK] OTP Code: {otp} (Use this code on the UI to test)")
+        else:
+            print(f"[DEV FALLBACK] Mock message sent to {phone_number}: {message}")
     
     print("-----------------------------\n")
     return False
+
+
+def send_sms_otp(phone_number: str, otp: str) -> bool:
+    """
+    Sends an OTP to the given Indian phone number.
+    """
+    message = f"Your RakshaPath verification code is: {otp}. Valid for 5 minutes. Do not share this OTP."
+    # Pass otp parameter to select the proper OTP route on gateways like Fast2SMS
+    return send_sms(phone_number, message, otp=otp)

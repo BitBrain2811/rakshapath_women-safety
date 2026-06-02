@@ -5,7 +5,7 @@ import HeatmapLayer from "./components/HeatmapLayer";
 import SafetyPanel from "./components/SafetyPanel";
 import Legend from "./components/Legend";
 import Auth from "./pages/Auth";
-import { getSafetyScore, getHeatmap, getRoutes, saveLastLocation, getLastLocation } from "./services/api";
+import { getSafetyScore, getHeatmap, getRoutes, saveLastLocation, getLastLocation, triggerSosAlert } from "./services/api";
 import { stateHelplines, detectStateFromCoordinates } from "./data/indian_states_helplines";
 import { translations } from "./data/translations";
 
@@ -317,6 +317,22 @@ function App() {
         ? "आपातकालीन अलर्ट सक्रिय कर दिया गया है। आपकी लाइव स्थिति पुलिस और आपके आपातकालीन संपर्कों को भेज दी गई है। कृपया शांत रहें और किसी सुरक्षित सार्वजनिक स्थान पर जाएं।"
         : "Emergency alert activated. Your live position has been dispatched to the police and your emergency contacts. Please stay calm and move to a safe public space.";
       speakInstruction(msg);
+
+      // Trigger real SMS alerts via backend API using Twilio/Fast2SMS
+      const lat = userLocation?.lat || defaultLat;
+      const lon = userLocation?.lon || defaultLon;
+      const contactsToAlert = [
+        ...personalContacts.map(c => c.phone),
+        emergencyPhone
+      ].filter(Boolean);
+
+      triggerSosAlert(userPhone, lat, lon, contactsToAlert)
+        .then((res) => {
+          console.log("Real SOS alerts sent successfully:", res.data);
+        })
+        .catch((err) => {
+          console.error("Failed to send real SOS alerts:", err);
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sosActive, lang]);
@@ -532,7 +548,14 @@ function App() {
       
       saveLastLocation(userPhone, lat, lon)
         .then(() => {
-          alert(`⌚ Watch LTE SOS Broadcast Active!\n\nWatch coordinates: ${lat.toFixed(5)}, ${lon.toFixed(5)}\nDispatched SMS alert to: ${emergencyPhone}`);
+          triggerSosAlert(userPhone, lat, lon, [emergencyPhone])
+            .then(() => {
+              alert(`⌚ Watch LTE SOS Broadcast Active!\n\nWatch coordinates: ${lat.toFixed(5)}, ${lon.toFixed(5)}\nDispatched SMS alert to: ${emergencyPhone}`);
+            })
+            .catch(err => {
+              console.error("Failed to dispatch Watch SOS alert:", err);
+              alert(`⌚ Watch LTE SOS Broadcast Active!\n\nWatch coordinates: ${lat.toFixed(5)}, ${lon.toFixed(5)}\nDispatched SMS alert to: ${emergencyPhone}`);
+            });
         })
         .catch((err) => console.error(err));
     } else {

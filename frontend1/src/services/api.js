@@ -29,3 +29,11 @@ export const saveLastLocation = (phoneNumber, lat, lon) =>
 
 export const getLastLocation = (phoneNumber) =>
   axios.get(`${API_BASE}/safety/last-location`, { params: { phone_number: phoneNumber } });
+
+export const triggerSosAlert = (phoneNumber, lat, lon, contacts) =>
+  axios.post(`${API_BASE}/alerts/sos`, {
+    phone_number: phoneNumber,
+    latitude: lat,
+    longitude: lon,
+    contacts: contacts
+  });
